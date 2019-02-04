@@ -13,6 +13,12 @@ Boilerplate with:
 
 Copy `.env.dist` into `.env` and fill the necessary values.
 
+Install the `node_modules`
+
+```
+$ npm install
+```
+
 ## Run
 
 Start bundler for the server:
