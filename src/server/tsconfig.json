@@ -1,0 +1,18 @@
+{
+  "extends": "../common/tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
+    "typeRoots": [
+      "@types",
+      "../common/@types",
+      "./@types"
+    ]
+  },
+  "include": [
+    "./**/*"
+  ]
+}

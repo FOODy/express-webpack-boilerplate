@@ -1,0 +1,6 @@
+_*
+.*
+!.git*
+node_modules
+/dist
+/.env
