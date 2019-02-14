@@ -1,1 +1,1 @@
-import './date-types.register';
+import './date-types.graphql-resolvers';
