@@ -1,0 +1,39 @@
+query GetAllPosts {
+  getPosts {
+    ...PostFragment
+  }
+}
+
+mutation CreatePost ($title: String!, $text: String!) {
+  createPost(title: $title, text: $text) {
+    ...PostFragment
+  }
+}
+
+mutation UpdatePost ($id: ID!, $title: String!, $text: String!) {
+  updatePost(id: $id, title: $title, text: $text) {
+    ...PostFragment
+  }
+}
+
+mutation DeletePost ($id: ID!) {
+  deletePost(id: $id) {
+    id
+  }
+}
+
+subscription PostChanges {
+  postChanges {
+    type
+    post {
+      ...PostFragment
+    }
+  }
+}
+
+fragment PostFragment on Post {
+  id
+  title
+  text
+  createdAt
+}

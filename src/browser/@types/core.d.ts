@@ -1,4 +1,4 @@
-namespace module {
+declare namespace module {
   const hot: Hot | undefined;
 
   interface Hot {
