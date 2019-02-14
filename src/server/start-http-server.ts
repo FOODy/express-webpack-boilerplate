@@ -4,7 +4,7 @@ import {GraphQLSchema} from 'graphql';
 import {PubSubEngine} from 'graphql-subscriptions';
 import createSessionRequestHandler from './lib/session/create-session-request-handler';
 import mountGraphqlMiddleware from './lib/graphql/mount-graphql-middleware';
-import mountStaticServeMiddleware from './lib/static/mount-static-serve-middleware';
+import mountStaticServeMiddleware from './lib/assets/mount-static-serve-middleware';
 
 export interface HttpServerOptions {
   host: string;

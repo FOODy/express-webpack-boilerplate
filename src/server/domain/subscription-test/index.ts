@@ -6,7 +6,7 @@ import {withFilter} from 'graphql-subscriptions';
 enum MutationType {
   CREATED = 'CREATED',
   UPDATED = 'UPDATED',
-  DELETED = 'DELETED'
+  DELETED = 'DELETED',
 }
 
 registerGraphqlTypes(

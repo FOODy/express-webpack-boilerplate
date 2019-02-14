@@ -60,7 +60,8 @@ export function deletePost(id: string): Post {
 }
 
 let lastPostId = 0;
-let posts: Post[] = [
+
+const posts: Post[] = [
   {
     id: (++lastPostId) + '',
     title: 'Post 1',
