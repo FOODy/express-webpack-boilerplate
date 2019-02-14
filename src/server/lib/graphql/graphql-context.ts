@@ -1,6 +1,7 @@
-import {Request, Response} from 'express';
+import {PubSubEngine} from 'graphql-subscriptions';
+import {IncomingMessage} from 'http';
 
 export default interface GraphqlContext {
-  req: Request;
-  res: Response;
+  request: IncomingMessage;
+  pubsub: PubSubEngine;
 }

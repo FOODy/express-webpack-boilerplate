@@ -1,23 +1,23 @@
-import './polyfills';
-import './domain';
-import express from 'express';
-import {APP_HOST, APP_PORT} from './env';
+import './bootstrap';
 import createGraphqlSchema from './lib/graphql/create-graphql-schema';
-import mountGraphqlMiddleware from './lib/graphql/mount-graphql-middleware';
-import mountStaticServeMiddleware from './lib/static/mount-static-serve-middleware';
-import createSessionRequestHandler from './lib/session/create-session-request-handler';
+import createGraphqlPubSub from './lib/graphql/create-graphql-pub-sub';
+import startHttpServer from './start-http-server';
+import startWebsocketServer from './start-websocket-server';
+import {APP_HOST, APP_HTTP_PORT, APP_WS_PORT} from './env';
 
-const app = express();
-const graphqlSchema = createGraphqlSchema();
+const schema = createGraphqlSchema();
+const pubsub = createGraphqlPubSub();
 
-app.use(createSessionRequestHandler());
+startHttpServer({
+  host: APP_HOST,
+  port: APP_HTTP_PORT,
+  schema,
+  pubsub,
+});
 
-mountGraphqlMiddleware(app, '/api/graphql', graphqlSchema);
-mountStaticServeMiddleware(app);
-
-//
-// Start server
-//
-app.listen(APP_PORT, () => {
-  console.log('Listening: http://' + APP_HOST + ':' + APP_PORT);
+startWebsocketServer({
+  host: APP_HOST,
+  port: APP_WS_PORT,
+  schema,
+  pubsub,
 });

@@ -4,9 +4,9 @@ import {GraphQLDate, GraphQLDateTime, GraphQLTime} from 'graphql-iso-date';
 
 registerGraphqlTypes(
   gql`
-      scalar Date
-      scalar DateTime
-      scalar Time
+    scalar Date
+    scalar DateTime
+    scalar Time
   `,
   {
     Date: GraphQLDate,

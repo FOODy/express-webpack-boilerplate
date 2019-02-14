@@ -8,7 +8,7 @@ const webpackConfig = Object.assign(
   }),
 );
 
-const port = parseInt(process.env.APP_PORT || 0, 10) || 8080;
+const port = parseInt(process.env.APP_HTTP_PORT || 0, 10) || 8080;
 const host = process.env.APP_HOST || 'localhost';
 
 const compiler = webpack(webpackConfig);
