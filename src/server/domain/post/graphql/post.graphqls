@@ -34,5 +34,5 @@ extend type Mutation {
 }
 
 extend type Subscription {
-	postChanges(types: [MutationType!], oddOnly: Boolean): PostMutation!
+	watchPostChanges(types: [MutationType!], oddOnly: Boolean): PostMutation!
 }

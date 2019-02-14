@@ -37,7 +37,7 @@ registerGraphqlTypes(PostSchema, {
   },
 
   Subscription: {
-    postChanges: {
+    watchPostChanges: {
       resolve: (payload) => payload.data,
       subscribe: withFilter(
         (_source, _args, { pubsub }) => pubsub.asyncIterator(POST_CHANGED),

@@ -4,8 +4,8 @@ import {
   CreatePost,
   DeletePost,
   GetAllPosts,
-  PostChanges,
   UpdatePost,
+  WatchPostChanges,
 } from '../../../../common/generated/graphql-client-types.generated';
 import makeMutateFunction from '../../../../common/lib/graphql/make-mutate-function';
 import makeSubscribeFunction from '../../../../common/lib/graphql/make-subscribe-function';
@@ -22,5 +22,5 @@ export const updatePost =
 export const deletePost =
   makeMutateFunction<DeletePost.Mutation, DeletePost.Variables>(Actions.DeletePost);
 
-export const subscribeToPostChanges =
-  makeSubscribeFunction<PostChanges.Subscription, PostChanges.Variables>(Actions.PostChanges);
+export const watchPostChanges =
+  makeSubscribeFunction<WatchPostChanges.Subscription, WatchPostChanges.Variables>(Actions.WatchPostChanges);

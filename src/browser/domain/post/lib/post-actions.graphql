@@ -22,8 +22,8 @@ mutation DeletePost ($id: ID!) {
   }
 }
 
-subscription PostChanges {
-  postChanges {
+subscription WatchPostChanges {
+  watchPostChanges {
     type
     post {
       ...PostFragment
