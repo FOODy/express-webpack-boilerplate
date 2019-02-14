@@ -1,76 +1,115 @@
 import {registerGraphqlTypes} from '../../lib/graphql/graphql-schema-builder';
 import gql from 'graphql-tag';
+import {createPost, deletePost, getPost, getPosts, updatePost} from './post';
+import {withFilter} from 'graphql-subscriptions';
+
+enum MutationType {
+  CREATED = 'CREATED',
+  UPDATED = 'UPDATED',
+  DELETED = 'DELETED'
+}
 
 registerGraphqlTypes(
   gql`
-    type ClickInfo {
-      count: Int!
+    type Post {
+      id: ID!
+      title: String!
       text: String!
+      createdAt: DateTime!
+      createdBy: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+    }
+
+    type PostMutation {
+      type: MutationType!
+      post: Post!
+    }
+
+    enum MutationType {
+      CREATED
+      UPDATED
+      DELETED
     }
 
     extend type Query {
-      getClicks: ClickInfo!
+      getPosts: [Post!]!
+      getPost(id: ID!): [Post!]!
     }
 
     extend type Mutation {
-      addClick: ClickInfo!
+      createPost(title: String!, text: String!): Post!
+      updatePost(id: ID!, title: String!, text: String!): Post!
+      deletePost(id: ID!): Post!
     }
 
     extend type Subscription {
-      numClicksChanged: ClickInfo!
+      postChanges(types: [MutationType!], oddOnly: Boolean): PostMutation!
     }
   `,
   {
-    ClickInfo: {
-      text: (value: { count: number }) => {
-        if (!value.count) {
-          return 'Keine Klicks';
-        }
-
-        return value.count === 1 ? 'Ein Klick' : value.count + ' Klicks';
-      },
+    MutationType: {
+      CREATED: MutationType.CREATED,
+      UPDATED: MutationType.UPDATED,
+      DELETED: MutationType.DELETED,
     },
 
     Query: {
-      getClicks: getClick,
+      getPost: (_, args) => getPost(args.id),
+      getPosts: () => getPosts(),
     },
 
     Mutation: {
-      addClick: async (_source, _args, { pubsub }) => {
-        const clickInfo = addClick();
+      createPost: async (_, args, { pubsub }) => {
+        const post = createPost(args.title, args.text);
 
-        await pubsub.publish(NUM_CLICKS_CHANGE, {
-          numClicksChanged: clickInfo,
-        });
+        await pubsub.publish(POST_CHANGED, { odd: (odd = !odd), data: { type: MutationType.CREATED, post } });
 
-        return clickInfo;
+        return post;
+      },
+
+      updatePost: async (_, args, { pubsub }) => {
+        const post = updatePost(args.id, args.title, args.text);
+
+        await pubsub.publish(POST_CHANGED, { odd: (odd = !odd), data: { type: MutationType.UPDATED, post } });
+
+        return post;
+      },
+
+      deletePost: async (_, args, { pubsub }) => {
+        const post = deletePost(args.id);
+
+        await pubsub.publish(POST_CHANGED, { odd: (odd = !odd), data: { type: MutationType.DELETED, post } });
+
+        return post;
       },
     },
 
     Subscription: {
-      numClicksChanged: {
-        subscribe: (_source, _args, { pubsub }) => pubsub.asyncIterator(NUM_CLICKS_CHANGE),
+      postChanges: {
+        resolve: (payload) => payload.data,
+        subscribe: withFilter(
+          (_source, _args, { pubsub }) => pubsub.asyncIterator(POST_CHANGED),
+          (payload, args) => {
+            if (args.oddOnly && !payload.odd) {
+              return false;
+            }
+
+            if (args.types && !args.types.includes(payload.data.type)) {
+              return false;
+            }
+
+            return true;
+          },
+        ),
       },
     },
   },
 );
 
-const NUM_CLICKS_CHANGE = 'NUM_CLICKS_CHANGE';
+const POST_CHANGED = 'POST_CHANGED';
 
-let numClicks = 0;
-
-function getClick(): ClickInfo {
-  return {
-    count: numClicks,
-  };
-}
-
-function addClick(): ClickInfo {
-  ++numClicks;
-
-  return getClick();
-}
-
-interface ClickInfo {
-  count: number;
-}
+let odd = false;
