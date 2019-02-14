@@ -129,6 +129,11 @@ module.exports = function (options) {
               },
             ],
           },
+
+          {
+            test: /\.graphqls?$/,
+            use: ['graphql-tag/loader'],
+          },
         ],
       },
 

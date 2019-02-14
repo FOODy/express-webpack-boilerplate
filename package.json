@@ -7,6 +7,7 @@
   "scripts": {
     "watch-browser": "node -r dotenv/config build/scripts/watch-browser.js",
     "watch-server": "webpack --mode=development --watch --config=build/config/webpack.server.js",
+    "watch-graphql": "gql-gen -c graphql.codegen.yml -w",
     "start": "nodemon -w dist/development/app --exec 'node -r dotenv/config dist/development/app/index.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -45,6 +46,13 @@
     "compression-webpack-plugin": "^2.0.0",
     "dotenv": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^0.5.2",
+    "graphql-code-generator": "^0.16.1",
+    "graphql-codegen-fragment-matcher": "^0.16.1",
+    "graphql-codegen-typescript-client": "^0.16.1",
+    "graphql-codegen-typescript-common": "^0.16.1",
+    "graphql-codegen-typescript-graphql-files-modules": "^0.16.1",
+    "graphql-codegen-typescript-resolvers": "^0.16.1",
+    "graphql-codegen-typescript-server": "^0.16.1",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.19.1",
     "nodemon": "^1.18.9",

@@ -1,2 +1,2 @@
 import './core';
-import './subscription-test';
+import './post';

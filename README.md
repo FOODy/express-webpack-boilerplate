@@ -21,6 +21,12 @@ $ npm install
 
 ## Run
 
+Start GraphQL codegenerator:
+
+```
+$ npm run watch-graphql
+```
+
 Start bundler for the server:
 
 ```

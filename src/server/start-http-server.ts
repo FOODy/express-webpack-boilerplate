@@ -27,6 +27,10 @@ export default function startHttpServer({
   mountStaticServeMiddleware(app);
 
   return app.listen(port, () => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`HTTP Server with Webpack is running on http://${host}:${port + 1}`);
+    }
+
     console.log(`HTTP Server is now running on http://${host}:${port}`);
   });
 }

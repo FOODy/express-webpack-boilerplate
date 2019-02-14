@@ -1,0 +1,25 @@
+schema:
+    - ./src/**/*.graphqls
+documents:
+    - ./src/**/*.graphql
+overwrite: true
+generates:
+    ./src/common/generated/graphql-files.generated.d.ts:
+        plugins:
+            - typescript-graphql-files-modules
+
+    ./src/common/generated/graphql-fragment-matcher.generated.ts:
+        plugins:
+            - fragment-matcher
+
+    ./src/common/generated/graphql-client-types.generated.ts:
+        config:
+            namingConvention:
+                enumValues: change-case#upperCase
+            scalars:
+                Date: string
+                DateTime: string
+                Time: string
+        plugins:
+            - typescript-common
+            - typescript-client

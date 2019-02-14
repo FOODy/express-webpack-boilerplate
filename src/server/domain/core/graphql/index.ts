@@ -1,1 +1,1 @@
-import './register-date-types';
+import './date-types.register';

@@ -2,22 +2,10 @@ import {DocumentNode} from 'graphql';
 import {IResolvers} from 'graphql-tools';
 import GraphqlContext from './graphql-context';
 import {flatten, isArray, merge} from 'lodash';
-import gql from 'graphql-tag';
+import Schema from './schema.graphqls';
 
 const registeredTypeDefs: DocumentNode[][] = [
-  gql`
-      type Query {
-          _empty_: Boolean
-      }
-
-      type Mutation {
-          _empty_: Boolean
-      }
-
-      type Subscription {
-          _empty_: Boolean
-      }
-  `,
+  [Schema],
 ];
 
 const registeredResolvers: IResolvers<any, GraphqlContext>[] = [];
