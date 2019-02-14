@@ -1,28 +1,19 @@
+import './polyfills';
+import './domain';
 import express from 'express';
-import path from 'path';
-import {APP_HOST, APP_PORT, APP_PUBLIC_DIR} from './env';
-import sessionHandler from './middleware/session-handler';
+import {APP_HOST, APP_PORT} from './env';
+import createGraphqlSchema from './lib/graphql/create-graphql-schema';
+import mountGraphqlMiddleware from './lib/graphql/mount-graphql-middleware';
+import mountStaticServeMiddleware from './lib/static/mount-static-serve-middleware';
+import createSessionRequestHandler from './lib/session/create-session-request-handler';
 
 const app = express();
+const graphqlSchema = createGraphqlSchema();
 
-app.use(sessionHandler());
+app.use(createSessionRequestHandler());
 
-//
-// Serve static files
-//
-app.use('static', express.static(APP_PUBLIC_DIR));
-
-app.use('favicon.ico', (req, res) => {
-  res.redirect(301, '/static/favicon.ico');
-});
-
-app.get('*', (req, res, next) => {
-  if (req.accepts('html')) {
-    res.sendFile(path.join(APP_PUBLIC_DIR, 'index.html'));
-  } else {
-    next();
-  }
-});
+mountGraphqlMiddleware(app, '/api/graphql', graphqlSchema);
+mountStaticServeMiddleware(app);
 
 //
 // Start server

@@ -1,6 +1,7 @@
+import './polyfills';
 import ReactDOM from 'react-dom';
-import App from './app';
 import React from 'react';
+import App from './app';
 
 render();
 

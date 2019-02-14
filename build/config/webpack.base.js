@@ -161,6 +161,7 @@ module.exports = function (options) {
 
         new ForkTsCheckerWebpackPlugin({
           tsconfig: TSCONFIG_FILE,
+          tslint: true,
         }),
 
         new webpack.DefinePlugin({

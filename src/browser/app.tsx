@@ -1,11 +1,11 @@
-import React, {Component, ReactNode} from 'react';
+import React from 'react';
 
-export default class App extends Component {
-  public render(): ReactNode {
-    return (
-      <div>
-        Hello World!
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      Hello World!
+    </div>
+  );
 }
+
+export default React.memo(App);
