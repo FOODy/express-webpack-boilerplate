@@ -1,14 +1,14 @@
 import * as Actions from './post-actions.graphql';
-import makeQueryFunction from '../../../../common/lib/graphql/make-query-function';
+import makeQueryFunction from '../../../lib/graphql/make-query-function';
 import {
   CreatePost,
   DeletePost,
   GetAllPosts,
   UpdatePost,
   WatchPostChanges,
-} from '../../../../common/generated/graphql-client-types.generated';
-import makeMutateFunction from '../../../../common/lib/graphql/make-mutate-function';
-import makeSubscribeFunction from '../../../../common/lib/graphql/make-subscribe-function';
+} from '../../../generated/graphql-client-types.generated';
+import makeMutateFunction from '../../../lib/graphql/make-mutate-function';
+import makeSubscribeFunction from '../../../lib/graphql/make-subscribe-function';
 
 export const getAllPosts =
   makeQueryFunction<GetAllPosts.GetPosts, GetAllPosts.Variables>(Actions.GetAllPosts);

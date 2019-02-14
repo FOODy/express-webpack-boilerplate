@@ -1,1 +1,1 @@
-import './post.register';
+import './post.graphql-resolvers';
