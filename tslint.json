@@ -8,6 +8,39 @@
       true,
       "spaces",
       2
+    ],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "linebreak-style": [
+      true,
+      "LF"
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "allow-leading-underscore"
+    ],
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
+    "radix": true,
+    "eofline": false,
+    "align": false,
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "no-console": false,
+    "no-bitwise": false,
+    "max-classes-per-file": false,
+    "ordered-imports": false,
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import |^export "
+      }
     ]
   },
   "rules": {

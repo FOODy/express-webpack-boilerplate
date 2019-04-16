@@ -1,17 +1,18 @@
 import {DocumentNode} from 'graphql';
-import {IResolvers} from 'graphql-tools';
 import GraphqlContext from './graphql-context';
 import {flatten, isArray, merge} from 'lodash';
 import Schema from './schema.graphqls';
+import {Resolvers} from '../../generated/graphql-server-types.generated';
+import {IResolvers} from 'graphql-tools';
 
 const registeredTypeDefs: DocumentNode[][] = [
   [Schema],
 ];
 
-const registeredResolvers: IResolvers<any, GraphqlContext>[] = [];
+const registeredResolvers: Resolvers[] = [];
 
 export function registerGraphqlTypes(typeDefs: DocumentNode | DocumentNode[],
-                                     resolvers: IResolvers<any, GraphqlContext>): void {
+                                     resolvers: Resolvers): void {
   registeredTypeDefs.push(isArray(typeDefs) ? typeDefs : [typeDefs]);
   registeredResolvers.push(resolvers);
 }

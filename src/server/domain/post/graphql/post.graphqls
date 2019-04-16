@@ -24,7 +24,7 @@ enum MutationType {
 
 extend type Query {
   getPosts: [Post!]!
-  getPost(id: ID!): [Post!]!
+  getPost(id: ID!): Post!
 }
 
 extend type Mutation {

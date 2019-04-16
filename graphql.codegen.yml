@@ -1,25 +1,53 @@
 schema:
-    - ./src/**/*.graphqls
-documents:
-    - ./src/**/*.graphql
+  - src/**/*.graphqls
+
 overwrite: true
+
 generates:
-    ./src/common/generated/graphql-files.generated.d.ts:
-        plugins:
-            - typescript-graphql-files-modules
+  src/common/generated/graphql-files.generated.d.ts:
+    documents:
+      - src/common/**/*.graphql
+    plugins:
+      - typescript-graphql-files-modules
 
-    ./src/common/generated/graphql-fragment-matcher.generated.ts:
-        plugins:
-            - fragment-matcher
+  src/common/generated/graphql-fragment-matcher.generated.ts:
+    documents:
+      - src/common/**/*.graphql
+    plugins:
+      - fragment-matcher
 
-    ./src/common/generated/graphql-client-types.generated.ts:
-        config:
-            namingConvention:
-                enumValues: change-case#upperCase
-            scalars:
-                Date: string
-                DateTime: string
-                Time: string
-        plugins:
-            - typescript-common
-            - typescript-client
+  src/common/generated/graphql-client-types.generated.ts:
+    documents:
+      - src/common/**/*.graphql
+    config:
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#upperCase
+      scalars:
+        Date: "string"
+        DateTime: "string"
+        Time: "string"
+    plugins:
+      - typescript
+      - typescript-operations
+
+  src/server/generated/graphql-server-types.generated.ts:
+    config:
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#upperCase
+      scalars:
+        Date: Date
+        DateTime: Date
+        Time: Date
+      contextType: "config.ContextType"
+      defaultMapper: "config.DefaultMapperType<{T}>"
+
+      # Map GraphQL Types to internal DataTypes (e.g. Database records)
+      mappers:
+        Post: 'config.Post'
+
+    plugins:
+      -   add: "import * as config from './config';"
+      - typescript
+      - typescript-resolvers

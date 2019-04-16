@@ -1,1 +1,1 @@
-import 'core-js/shim';
+import 'core-js';

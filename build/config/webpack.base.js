@@ -8,14 +8,14 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
-module.exports = function (options) {
+module.exports = function(options) {
   const IS_SERVER = options.platform === 'server';
   const IS_BROWSER = !IS_SERVER;
   const APP_ROOT_DIR = path.join(__dirname, '../..');
   const APP_SRC_DIR = path.join(APP_ROOT_DIR, 'src', IS_SERVER ? 'server' : 'browser');
   const TSCONFIG_FILE = path.join(APP_SRC_DIR, 'tsconfig.json');
 
-  return function (env, args) {
+  return function(env, args) {
     const IS_RELEASE = args.mode === 'production';
     const IS_DEBUG = !IS_RELEASE;
     const NODE_ENV = IS_RELEASE ? 'production' : 'development';
