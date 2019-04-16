@@ -40,6 +40,7 @@ generates:
         Date: Date
         DateTime: Date
         Time: Date
+      noSchemaStitching: true
       contextType: "config.ContextType"
       defaultMapper: "config.DefaultMapperType<{T}>"
 
