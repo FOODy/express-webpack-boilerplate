@@ -3,7 +3,7 @@ import {createPost, deletePost, getPost, getPosts, updatePost} from '../post-sto
 import {withFilter} from 'graphql-subscriptions';
 import PostSchema from './post.graphqls';
 import {MutationType} from '../../../../common/generated/graphql-client-types.generated';
-import {GraphQLError} from 'graphql';
+import {UserInputError} from 'apollo-server-errors';
 
 registerGraphqlTypes(PostSchema, {
   Query: {
@@ -11,7 +11,7 @@ registerGraphqlTypes(PostSchema, {
       const post = getPost(args.id);
 
       if (post == null) {
-        throw new GraphQLError('Post not found.');
+        throw new UserInputError('Post not found.');
       }
 
       return post;
