@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
@@ -159,8 +159,8 @@ module.exports = function(options) {
       externals: IS_SERVER ? [nodeExternals()] : undefined,
 
       plugins: [
-        new CleanWebpackPlugin([BUILD_DIR], {
-          root: path.dirname(BUILD_DIR),
+        new CleanWebpackPlugin({
+          cleanOnceBeforeBuildPatterns: BUILD_DIR,
         }),
 
         new ForkTsCheckerWebpackPlugin({
