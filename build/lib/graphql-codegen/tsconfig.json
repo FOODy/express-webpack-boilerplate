@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": [
+      "es2015"
+    ],
+    "strict": true,
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": "."
+  },
+  "include": [
+    "./lib/**/*",
+    "./plugins/**/*"
+  ],
+  "exclude": [
+    "../../../src/**/*"
+  ],
+  "compileOnSave": true
+}

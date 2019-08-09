@@ -4,6 +4,9 @@ schema:
 overwrite: true
 
 generates:
+  ##
+  ## Common
+  ##
   src/common/generated/graphql-files.generated.d.ts:
     documents:
       - src/common/**/*.graphql
@@ -31,6 +34,27 @@ generates:
       - typescript
       - typescript-operations
 
+  src/common/generated/graphql-typenames.generated.ts:
+    documents:
+      - src/common/**/*.graphql
+    plugins:
+      - 'build/lib/graphql-codegen/plugins/typenames-plugin.js'
+
+  src/common/generated/graphql-cache-redirects.generated.ts:
+    documents:
+      - src/common/**/*.graphql
+    plugins:
+      - 'build/lib/graphql-codegen/plugins/cache-redirects-plugin.js'
+
+  src/common/generated/graphql-queries.generated.ts:
+    documents:
+      - src/common/**/*.graphql
+    plugins:
+      - 'build/lib/graphql-codegen/plugins/queries-plugin.js'
+
+  ##
+  ## Server
+  ##
   src/server/generated/graphql-server-types.generated.ts:
     config:
       namingConvention:
@@ -44,11 +68,12 @@ generates:
       contextType: "config.ContextType"
       defaultMapper: "config.DefaultMapperType<{T}>"
 
-      # Map GraphQL Types to internal DataTypes (e.g. Database records)
+      # Map GraphQL types to internal types in resolvers (e.g. Database records)
+      # Should be in sync with the ResolversTypes in `src/server/generated/graphql-server-types-config.ts`
       mappers:
-        Post: 'config.Post'
+        Post: 'config.ResolversTypes["Post"]'
 
     plugins:
-      -   add: "import * as config from './config';"
+      - add: "import * as config from './graphql-server-types-config';"
       - typescript
       - typescript-resolvers

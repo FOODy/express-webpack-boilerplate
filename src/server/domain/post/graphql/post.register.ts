@@ -1,11 +1,10 @@
-import {registerGraphqlTypes} from '../../../lib/graphql/graphql-schema-builder';
+import {addGraphqlResolvers} from '../../../lib/graphql/graphql-schema-builder';
 import {createPost, deletePost, getPost, getPosts, updatePost} from '../post-storage';
 import {withFilter} from 'graphql-subscriptions';
-import PostSchema from './post.graphqls';
 import {MutationType} from '../../../../common/generated/graphql-client-types.generated';
 import {UserInputError} from 'apollo-server-errors';
 
-registerGraphqlTypes(PostSchema, {
+addGraphqlResolvers({
   Query: {
     getPost: (_, args) => {
       const post = getPost(args.id);
